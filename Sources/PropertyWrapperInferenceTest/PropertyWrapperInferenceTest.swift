@@ -9,6 +9,7 @@ func ifLet<Value, Result>(_ value: Value?, then: (Value) -> Result) -> Result? {
 }
 
 struct Foo {
+
     @Wrapper var value: Int?
 
     // Gives the following compiler error:
@@ -16,6 +17,9 @@ struct Foo {
     // 'Wrapper<String>?', use wrapper instead
     var bar: String? { ifLet(value, then: { String($0) }) }
 
-    // But this Works fine.
+    // This works fine.
     var baz: String? { ifLet(_value.wrappedValue, then: { String($0) }) }
+
+    // And this works too.
+    var qux: String? { ifLet(value as Int?, then: { String($0) }) }
 }
