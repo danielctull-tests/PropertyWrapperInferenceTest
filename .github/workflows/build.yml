@@ -1,9 +1,11 @@
 name: build
 
 on:
-  push
+  push:
+    branches:
+      - master
   schedule:
-    - cron:  '0 0 * * *'
+    - cron: '0 0 * * * '
 
 jobs:
 
