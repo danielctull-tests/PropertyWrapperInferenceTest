@@ -1,11 +1,8 @@
-name: build
+name: tests
 
 on:
-  push:
-    branches:
-      - master
-  schedule:
-    - cron: '0 0 * * * '
+  - push
+  - pull_request
 
 jobs:
 
@@ -13,7 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: ["swift:5.1", "swiftlang/swift:nightly-5.2", "swiftlang/swift:nightly"]
+        image:
+          - "swift:5.1"
     name: Linux
     runs-on: ubuntu-latest
     container:
@@ -25,8 +23,12 @@ jobs:
       run: swift --version
     - name: Release Build
       run: swift build -v -c release
+    - name: Release Test
+      run: swift test -v -c release
     - name: Debug Build
       run: swift build -v -c debug
+    - name: Debug Test
+      run: swift test -v -c debug
 
   macos:
     name: MacOS
@@ -38,5 +40,9 @@ jobs:
       run: swift --version
     - name: Release Build
       run: swift build -v -c release
+    - name: Release Test
+      run: swift test -v -c release
     - name: Debug Build
       run: swift build -v -c debug
+    - name: Debug Test
+      run: swift test -v -c debug
