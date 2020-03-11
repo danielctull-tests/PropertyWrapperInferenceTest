@@ -23,9 +23,5 @@ jobs:
       run: swift --version
     - name: Release Build
       run: swift build -v -c release
-    - name: Release Test
-      run: swift test -v -c release
     - name: Debug Build
       run: swift build -v -c debug
-    - name: Debug Test
-      run: swift test -v -c debug
